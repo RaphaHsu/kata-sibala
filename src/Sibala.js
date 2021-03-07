@@ -73,7 +73,10 @@ function parseInput(input) {
       case CategoryType.ALL_THE_SAME_KIND:
         return _.first(player.dices[4])
       case CategoryType.NORMAL_POINT:
-        return _.sum(_.map(player.dices[1], val => parseInt(val)))
+        const point = player.dices[2]?.length === 1
+          ? _.sum(_.map(player.dices[1], val => parseInt(val)))
+          : _.max(player.dices[2]) * 2;
+        return point
     }
   }
 
