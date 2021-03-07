@@ -1,7 +1,39 @@
 import _ from 'lodash';
 
+const CategoryType = {
+  ALL_THE_SAME_KIND: "ALL_THE_SAME_KIND",
+}
+
+
 function result(input) {
+  const [ firstPlayer, secondPlayer ] = parseInput(input)
+
+  firstPlayer.category = getCategory(firstPlayer.dices);
+  secondPlayer.category = getCategory(secondPlayer.dices);
+
+  if (firstPlayer.category === secondPlayer.category) {
+    if (firstPlayer.category === CategoryType.ALL_THE_SAME_KIND) {
+      if (firstPlayer.dices[4][0] !== secondPlayer.dices[4][0]) {
+        const winner = (firstPlayer.dices[4][0] > secondPlayer.dices[4][0]) ? firstPlayer : secondPlayer;
+        return `${winner.name} wins, all the same kind: ${winner.dices[4][0]}`
+      }
+    }
+  }
+
   return 'Tie.'
+}
+
+/**
+ * getCategory([1,1,1,1])
+ *
+ * 0 (ALL_THE_SAME_KIND)
+ */
+function getCategory(dices) {
+  if (dices[4]) {
+    return CategoryType.ALL_THE_SAME_KIND
+  }
+
+  throw new Error('this category type not implement')
 }
 
 /**
