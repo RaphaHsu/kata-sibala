@@ -15,6 +15,14 @@ function result(input) {
         const winner = (firstPlayer.winningPoint > secondPlayer.winningPoint) ? firstPlayer : secondPlayer;
         return `${winner.name} wins, all the same kind: ${winner.winningPoint}`
       }
+
+    }
+
+    if (firstPlayer.category === CategoryType.NORMAL_POINT) {
+      if (firstPlayer.winningPoint !== secondPlayer.winningPoint) {
+        const winner = (firstPlayer.winningPoint > secondPlayer.winningPoint) ? firstPlayer : secondPlayer;
+        return `${winner.name} wins, normal point: ${winner.winningPoint}`
+      }
     }
   }
 
@@ -64,6 +72,8 @@ function parseInput(input) {
     switch (player.category) {
       case CategoryType.ALL_THE_SAME_KIND:
         return _.first(player.dices[4])
+      case CategoryType.NORMAL_POINT:
+        return _.sum(_.map(player.dices[1], val => parseInt(val)))
     }
   }
 
