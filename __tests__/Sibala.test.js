@@ -18,6 +18,12 @@ describe('Sibala', function () {
         expect(game.result(input)).toBe('Tie.');
       });
     });
+    describe('Normal Point', function () {
+      it('result_SameWinningPoint_ReturnTie', function () {
+        const input = 'Amy:1 1 3 4  Lin:1 1 4 3'
+        expect(game.result(input)).toBe('Tie.');
+      });
+    });
   });
   it('parseInput_ReturnPlayerNameAndDices', function () {
     let input = 'Amy:6 6 6 6  Lin:1 1 1 1';
