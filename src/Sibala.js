@@ -29,6 +29,10 @@ function result(input) {
       const winner = firstPlayer
       return `${winner.name} wins, all the same kind: ${winner.winningPoint}`
     }
+    if (firstPlayer.category === CategoryType.ALL_THE_SAME_KIND && secondPlayer.category === CategoryType.NORMAL_POINT) {
+      const winner = firstPlayer
+      return `${winner.name} wins, all the same kind: ${winner.winningPoint}`
+    }
   }
 
   return 'Tie.'
@@ -75,7 +79,7 @@ function parseInput(input) {
 
   function getWinningPoint(player) {
     const { dices } = player;
-   
+
     switch (player.category) {
       case CategoryType.ALL_THE_SAME_KIND:
         return _.first(dices[4])
