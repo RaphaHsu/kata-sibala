@@ -50,6 +50,10 @@ describe('Sibala', function () {
       const input = 'Amy:1 2 3 4  Lin:1 1 2 2'
       expect(game.result(input)).toBe('Lin wins, normal point: 4');
     });
+    it('No Point < All 6', function () {
+      const input = 'Amy:3 3 3 2  Lin:6 6 6 6';
+      expect(game.result(input)).toBe('Lin wins, all the same kind: 6');
+    });
   });
   it('parseInput_ReturnPlayerNameAndDices', function () {
     let input = 'Amy:6 6 6 6  Lin:1 1 1 1';
