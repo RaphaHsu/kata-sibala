@@ -34,17 +34,21 @@ describe('Sibala', function () {
     });
   });
   describe('Different category', function () {
-    it('All the same kind bigger than no point', function () {
+    it('All the same kind > No point', function () {
       const input = 'Amy:1 1 1 1  Lin:1 2 3 4'
       expect(game.result(input)).toBe('Amy wins, all the same kind: 1');
     });
-    it('All the same kind bigger than normal point', function () {
+    it('All the same kind > Normal point', function () {
       const input = 'Amy:1 1 1 1  Lin:1 1 2 2'
       expect(game.result(input)).toBe('Amy wins, all the same kind: 1');
     });
-    it('Normal point bigger than no point', function () {
+    it('Normal point > No point', function () {
       const input = 'Amy:1 1 2 2  Lin:1 2 3 4'
       expect(game.result(input)).toBe('Amy wins, normal point: 4');
+    });
+    it('No point < Normal point', function () {
+      const input = 'Amy:1 2 3 4  Lin:1 1 2 2'
+      expect(game.result(input)).toBe('Lin wins, normal point: 4');
     });
   });
   it('parseInput_ReturnPlayerNameAndDices', function () {
