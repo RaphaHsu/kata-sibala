@@ -8,37 +8,48 @@ function result(input) {
     return `${winner.name} wins, ${CategoryOutput[winner.category]}: ${winner.winningPoint}`;
   }
 
-  if (firstPlayer.category === secondPlayer.category) {
-    if (firstPlayer.category === CategoryType.ALL_THE_SAME_KIND) {
-      if (firstPlayer.winningPoint !== secondPlayer.winningPoint) {
-        const winner = (firstPlayer.winningPoint > secondPlayer.winningPoint) ? firstPlayer : secondPlayer;
-        return outputWin(winner)
-      }
+  function outputTie() {
+    return 'Tie.'
+  }
 
+  function isSameCategory() {
+    return firstPlayer.category === secondPlayer.category;
+  }
+
+  function isSameWinningPoint() {
+    return firstPlayer.winningPoint === secondPlayer.winningPoint;
+  }
+
+  if (isSameCategory() && isSameWinningPoint()) {
+    return outputTie();
+  }
+
+  if (isSameCategory()) {
+    if (firstPlayer.category === CategoryType.ALL_THE_SAME_KIND) {
+      const winner = (firstPlayer.winningPoint > secondPlayer.winningPoint) ? firstPlayer : secondPlayer;
+      return outputWin(winner)
     }
 
     if (firstPlayer.category === CategoryType.NORMAL_POINT) {
-      if (firstPlayer.winningPoint !== secondPlayer.winningPoint) {
-        const winner = (firstPlayer.winningPoint > secondPlayer.winningPoint) ? firstPlayer : secondPlayer;
-        return outputWin(winner)
-      }
-    }
-  } else {
-    if (firstPlayer.category === CategoryType.ALL_THE_SAME_KIND && secondPlayer.category === CategoryType.NO_POINT) {
-      const winner = firstPlayer
-      return outputWin(winner)
-    }
-    if (firstPlayer.category === CategoryType.ALL_THE_SAME_KIND && secondPlayer.category === CategoryType.NORMAL_POINT) {
-      const winner = firstPlayer
-      return outputWin(winner)
-    }
-    if (firstPlayer.category === CategoryType.NORMAL_POINT && secondPlayer.category === CategoryType.NO_POINT) {
-      const winner = firstPlayer
+      const winner = (firstPlayer.winningPoint > secondPlayer.winningPoint) ? firstPlayer : secondPlayer;
       return outputWin(winner)
     }
   }
 
-  return 'Tie.'
+  if (firstPlayer.category === CategoryType.ALL_THE_SAME_KIND && secondPlayer.category === CategoryType.NO_POINT) {
+    const winner = firstPlayer
+    return outputWin(winner)
+  }
+  if (firstPlayer.category === CategoryType.ALL_THE_SAME_KIND && secondPlayer.category === CategoryType.NORMAL_POINT) {
+    const winner = firstPlayer
+    return outputWin(winner)
+  }
+  if (firstPlayer.category === CategoryType.NORMAL_POINT && secondPlayer.category === CategoryType.NO_POINT) {
+    const winner = firstPlayer
+    return outputWin(winner)
+  }
+
+  throw new Error('this sibala match not implement')
 }
 
 /**
