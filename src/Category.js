@@ -1,9 +1,9 @@
 export const CategoryType = {
-  ALL_THE_SAME_KIND: "ALL_THE_SAME_KIND",
-  NO_POINT: "NO_POINT",
-  NORMAL_POINT: "NORMAL_POINT",
+  ALL_THE_SAME_KIND: 0,
+  NORMAL_POINT: 1,
+  NO_POINT: 2,
 }
 export const CategoryOutput = {
-  "ALL_THE_SAME_KIND": 'all the same kind',
-  "NORMAL_POINT": 'normal point',
+  0: 'all the same kind',
+  1: 'normal point',
 }

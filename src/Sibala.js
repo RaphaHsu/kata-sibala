@@ -41,10 +41,8 @@ function result(input) {
     const winner = firstPlayer
     return outputWin(winner)
   }
-  if (firstPlayer.category === CategoryType.NO_POINT && secondPlayer.category === CategoryType.NORMAL_POINT) {
-    const winner = secondPlayer
-    return outputWin(winner)
-  }
+  const winner = (firstPlayer.category < secondPlayer.category) ? firstPlayer : secondPlayer
+  return outputWin(winner)
 
   throw new Error('this sibala match not implement')
 }
