@@ -12,8 +12,11 @@ describe('Sibala', function () {
         expect(game.result(input)).toBe('Amy wins, all the same kind: 6');
       });
     });
-    it('', function () {
-
+    describe('No point', function () {
+      it('result_ReturnTie', function () {
+        const input = 'Amy:1 2 3 4  Lin:3 4 5 6'
+        expect(game.result(input)).toBe('Tie.');
+      });
     });
   });
   it('parseInput_ReturnPlayerNameAndDices', function () {
