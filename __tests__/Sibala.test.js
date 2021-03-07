@@ -33,6 +33,12 @@ describe('Sibala', function () {
       });
     });
   });
+  describe('Different category', function () {
+    it('All the same kind bigger than no point', function () {
+      const input = 'Amy:1 1 1 1  Lin:1 2 3 4'
+      expect(game.result(input)).toBe('Amy wins, all the same kind: 1');
+    });
+  });
   it('parseInput_ReturnPlayerNameAndDices', function () {
     let input = 'Amy:6 6 6 6  Lin:1 1 1 1';
     const players = game.parseInput(input)
