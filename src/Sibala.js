@@ -1,105 +1,101 @@
 import _ from 'lodash';
-import { CategoryOutput, CategoryType } from "./Category";
+import { CategoryOutput, CategoryType, getCategory } from "./Category";
 
-function result(input) {
-  const [ firstPlayer, secondPlayer ] = parseInput(input)
+class Sibala {
+  winner = null;
 
-  function outputWin(winner) {
-    return `${winner.name} wins, ${CategoryOutput[winner.category]}: ${winner.winningPoint}`;
+  constructor(input) {
+    const [ firstPlayer, secondPlayer ] = Sibala.parseInput(input)
+    this.firstPlayer = firstPlayer;
+    this.secondPlayer = secondPlayer;
   }
 
-  function outputTie() {
+  outputWin() {
+    if (!this.winner) throw new Error('No Winner')
+
+    return `${this.winner.name} wins, ${CategoryOutput[this.winner.category]}: ${this.winner.winningPoint}`;
+  }
+
+  outputTie() {
     return 'Tie.'
   }
 
-  function isSameCategory() {
-    return firstPlayer.category === secondPlayer.category;
+  isSameCategory() {
+    return this.firstPlayer.category === this.secondPlayer.category;
   }
 
-  function isSameWinningPoint() {
-    return firstPlayer.winningPoint === secondPlayer.winningPoint;
+  isSameWinningPoint() {
+    return this.firstPlayer.winningPoint === this.secondPlayer.winningPoint;
   }
 
-  if (isSameCategory() && isSameWinningPoint()) {
-    return outputTie();
-  }
-
-  if (isSameCategory()) {
-    const winner = (firstPlayer.winningPoint > secondPlayer.winningPoint) ? firstPlayer : secondPlayer;
-    return outputWin(winner)
-  }
-
-  const winner = (firstPlayer.category < secondPlayer.category) ? firstPlayer : secondPlayer
-  return outputWin(winner)
-}
-
-/**
- * getCategory([1,1,1,1])
- *
- * 0 (ALL_THE_SAME_KIND)
- */
-function getCategory(dices) {
-  if (dices[4]) {
-    return CategoryType.ALL_THE_SAME_KIND
-  }
-
-  if (dices[1]?.length === 4) {
-    return CategoryType.NO_POINT
-  }
-
-  if (dices[2]) {
-    return CategoryType.NORMAL_POINT
-  }
-
-  throw new Error('this category type not implement')
-}
-
-/**
- * parseInput('Amy:6 6 6 6  Lin:1 1 1 1')
- *
- * [
- *   {name: 'Amy', dices: [6, 6, 6, 6]},
- *   {name: 'Lin', dices: [1, 1, 1, 1]}
- * ]
- */
-function parseInput(input) {
-  const [ firstPlayerInput, secondPlayerInput ] = input.split('  ');
-
-  function getPlayer(text) {
-    const [ name, dicesString ] = text.split(':')
-    const dicesArray = dicesString.split(' ').map(val => parseInt(val));
-    const dices = _.invertBy(_.countBy(dicesArray))
-    return { name, dices }
-  }
-
-  function getWinningPoint(player) {
-    const { dices } = player;
-
-    switch (player.category) {
-      case CategoryType.ALL_THE_SAME_KIND:
-        return _.first(dices[4])
-      case CategoryType.NORMAL_POINT:
-        const point = dices[2]?.length === 2
-          ? _.max(dices[2]) * 2
-          : _.sum(_.map(dices[1], val => parseInt(val)))
-        return point
+  result() {
+    if (this.isSameCategory() && this.isSameWinningPoint()) {
+      return this.outputTie();
     }
+
+    if (this.isSameCategory()) {
+      this.compareWinningPoint();
+    } else {
+      this.compareCategoryPriority();
+    }
+
+    return this.outputWin()
   }
 
-  const firstPlayer = getPlayer(firstPlayerInput)
-  const secondPlayer = getPlayer(secondPlayerInput)
 
-  firstPlayer.category = getCategory(firstPlayer.dices);
-  secondPlayer.category = getCategory(secondPlayer.dices);
-  firstPlayer.winningPoint = getWinningPoint(firstPlayer);
-  secondPlayer.winningPoint = getWinningPoint(secondPlayer);
+  compareCategoryPriority() {
+    this.winner = (this.firstPlayer.category < this.secondPlayer.category) ? this.firstPlayer : this.secondPlayer
+  }
 
-  return [
-    firstPlayer, secondPlayer
-  ]
+  compareWinningPoint() {
+    this.winner = (this.firstPlayer.winningPoint > this.secondPlayer.winningPoint) ? this.firstPlayer : this.secondPlayer;
+  }
+
+  /**
+   * parseInput('Amy:6 6 6 6  Lin:1 1 1 1')
+   *
+   * [
+   *   {name: 'Amy', dices: [6, 6, 6, 6]},
+   *   {name: 'Lin', dices: [1, 1, 1, 1]}
+   * ]
+   */
+
+  static parseInput(input) {
+    const [ firstPlayerInput, secondPlayerInput ] = input.split('  ');
+
+    function getPlayer(text) {
+      const [ name, dicesString ] = text.split(':')
+      const dicesArray = dicesString.split(' ').map(val => parseInt(val));
+      const dices = _.invertBy(_.countBy(dicesArray))
+      return { name, dices }
+    }
+
+    function getWinningPoint(player) {
+      const { category, dices } = player;
+
+      switch (category) {
+        case CategoryType.ALL_THE_SAME_KIND:
+          return _.first(dices[4])
+        case CategoryType.NORMAL_POINT:
+          const point = dices[2]?.length === 2
+            ? _.max(dices[2]) * 2
+            : _.sum(_.map(dices[1], val => parseInt(val)))
+          return point
+      }
+    }
+
+    const firstPlayer = getPlayer(firstPlayerInput)
+    const secondPlayer = getPlayer(secondPlayerInput)
+
+    firstPlayer.category = getCategory(firstPlayer.dices);
+    secondPlayer.category = getCategory(secondPlayer.dices);
+    firstPlayer.winningPoint = getWinningPoint(firstPlayer);
+    secondPlayer.winningPoint = getWinningPoint(secondPlayer);
+
+    return [
+      firstPlayer, secondPlayer
+    ]
+  }
 }
 
-export default {
-  result,
-  parseInput
-};
+export default Sibala;
