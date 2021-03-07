@@ -2,6 +2,7 @@ import _ from 'lodash';
 
 const CategoryType = {
   ALL_THE_SAME_KIND: "ALL_THE_SAME_KIND",
+  NO_POINT: "NO_POINT",
 }
 
 function result(input) {
@@ -27,6 +28,10 @@ function result(input) {
 function getCategory(dices) {
   if (dices[4]) {
     return CategoryType.ALL_THE_SAME_KIND
+  }
+
+  if (dices[1]?.length === 4) {
+    return CategoryType.NO_POINT
   }
 
   throw new Error('this category type not implement')
