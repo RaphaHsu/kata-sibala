@@ -1,5 +1,6 @@
 # Sibala
 
-# Description
-
 # Test
+```shell
+yarn test
+```
