@@ -43,7 +43,7 @@ function getCategory(dices) {
     return CategoryType.ALL_THE_SAME_KIND
   }
 
-  if (dices[1]?.length === 4) {
+  if (dices[1]?.length === 4 || dices[3]) {
     return CategoryType.NO_POINT
   }
 
