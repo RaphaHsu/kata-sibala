@@ -29,22 +29,8 @@ function result(input) {
     return outputWin(winner)
   }
 
-  if (firstPlayer.category === CategoryType.ALL_THE_SAME_KIND && secondPlayer.category === CategoryType.NO_POINT) {
-    const winner = firstPlayer
-    return outputWin(winner)
-  }
-  if (firstPlayer.category === CategoryType.ALL_THE_SAME_KIND && secondPlayer.category === CategoryType.NORMAL_POINT) {
-    const winner = firstPlayer
-    return outputWin(winner)
-  }
-  if (firstPlayer.category === CategoryType.NORMAL_POINT && secondPlayer.category === CategoryType.NO_POINT) {
-    const winner = firstPlayer
-    return outputWin(winner)
-  }
   const winner = (firstPlayer.category < secondPlayer.category) ? firstPlayer : secondPlayer
   return outputWin(winner)
-
-  throw new Error('this sibala match not implement')
 }
 
 /**
