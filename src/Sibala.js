@@ -33,6 +33,10 @@ function result(input) {
       const winner = firstPlayer
       return `${winner.name} wins, all the same kind: ${winner.winningPoint}`
     }
+    if (firstPlayer.category === CategoryType.NORMAL_POINT && secondPlayer.category === CategoryType.NO_POINT) {
+      const winner = firstPlayer
+      return `${winner.name} wins, normal point: ${winner.winningPoint}`
+    }
   }
 
   return 'Tie.'
