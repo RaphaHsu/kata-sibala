@@ -27,6 +27,10 @@ describe('Sibala', function () {
         const input = 'Amy:1 1 3 3  Lin:1 1 4 3'
         expect(game.result(input)).toBe('Lin wins, normal point: 7');
       });
+      it('result_TwoPair_ReturnWin', function () {
+        const input = 'Amy:1 1 3 3  Lin:1 1 4 4'
+        expect(game.result(input)).toBe('Lin wins, normal point: 8');
+      });
     });
   });
   it('parseInput_ReturnPlayerNameAndDices', function () {
