@@ -1,19 +1,18 @@
 import _ from 'lodash';
-
-const CategoryType = {
-  ALL_THE_SAME_KIND: "ALL_THE_SAME_KIND",
-  NO_POINT: "NO_POINT",
-  NORMAL_POINT: "NORMAL_POINT",
-}
+import { CategoryOutput, CategoryType } from "./Category";
 
 function result(input) {
   const [ firstPlayer, secondPlayer ] = parseInput(input)
+
+  function outputWin(winner) {
+    return `${winner.name} wins, ${CategoryOutput[winner.category]}: ${winner.winningPoint}`;
+  }
 
   if (firstPlayer.category === secondPlayer.category) {
     if (firstPlayer.category === CategoryType.ALL_THE_SAME_KIND) {
       if (firstPlayer.winningPoint !== secondPlayer.winningPoint) {
         const winner = (firstPlayer.winningPoint > secondPlayer.winningPoint) ? firstPlayer : secondPlayer;
-        return `${winner.name} wins, all the same kind: ${winner.winningPoint}`
+        return outputWin(winner)
       }
 
     }
@@ -21,21 +20,21 @@ function result(input) {
     if (firstPlayer.category === CategoryType.NORMAL_POINT) {
       if (firstPlayer.winningPoint !== secondPlayer.winningPoint) {
         const winner = (firstPlayer.winningPoint > secondPlayer.winningPoint) ? firstPlayer : secondPlayer;
-        return `${winner.name} wins, normal point: ${winner.winningPoint}`
+        return outputWin(winner)
       }
     }
   } else {
     if (firstPlayer.category === CategoryType.ALL_THE_SAME_KIND && secondPlayer.category === CategoryType.NO_POINT) {
       const winner = firstPlayer
-      return `${winner.name} wins, all the same kind: ${winner.winningPoint}`
+      return outputWin(winner)
     }
     if (firstPlayer.category === CategoryType.ALL_THE_SAME_KIND && secondPlayer.category === CategoryType.NORMAL_POINT) {
       const winner = firstPlayer
-      return `${winner.name} wins, all the same kind: ${winner.winningPoint}`
+      return outputWin(winner)
     }
     if (firstPlayer.category === CategoryType.NORMAL_POINT && secondPlayer.category === CategoryType.NO_POINT) {
       const winner = firstPlayer
-      return `${winner.name} wins, normal point: ${winner.winningPoint}`
+      return outputWin(winner)
     }
   }
 
