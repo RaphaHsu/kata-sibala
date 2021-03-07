@@ -25,15 +25,8 @@ function result(input) {
   }
 
   if (isSameCategory()) {
-    if (firstPlayer.category === CategoryType.ALL_THE_SAME_KIND) {
-      const winner = (firstPlayer.winningPoint > secondPlayer.winningPoint) ? firstPlayer : secondPlayer;
-      return outputWin(winner)
-    }
-
-    if (firstPlayer.category === CategoryType.NORMAL_POINT) {
-      const winner = (firstPlayer.winningPoint > secondPlayer.winningPoint) ? firstPlayer : secondPlayer;
-      return outputWin(winner)
-    }
+    const winner = (firstPlayer.winningPoint > secondPlayer.winningPoint) ? firstPlayer : secondPlayer;
+    return outputWin(winner)
   }
 
   if (firstPlayer.category === CategoryType.ALL_THE_SAME_KIND && secondPlayer.category === CategoryType.NO_POINT) {
