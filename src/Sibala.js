@@ -4,18 +4,14 @@ const CategoryType = {
   ALL_THE_SAME_KIND: "ALL_THE_SAME_KIND",
 }
 
-
 function result(input) {
   const [ firstPlayer, secondPlayer ] = parseInput(input)
 
-  firstPlayer.category = getCategory(firstPlayer.dices);
-  secondPlayer.category = getCategory(secondPlayer.dices);
-
   if (firstPlayer.category === secondPlayer.category) {
     if (firstPlayer.category === CategoryType.ALL_THE_SAME_KIND) {
-      if (firstPlayer.dices[4][0] !== secondPlayer.dices[4][0]) {
-        const winner = (firstPlayer.dices[4][0] > secondPlayer.dices[4][0]) ? firstPlayer : secondPlayer;
-        return `${winner.name} wins, all the same kind: ${winner.dices[4][0]}`
+      if (firstPlayer.winningPoint !== secondPlayer.winningPoint) {
+        const winner = (firstPlayer.winningPoint > secondPlayer.winningPoint) ? firstPlayer : secondPlayer;
+        return `${winner.name} wins, all the same kind: ${winner.winningPoint}`
       }
     }
   }
@@ -54,8 +50,20 @@ function parseInput(input) {
     return { name, dices }
   }
 
+  function getWinningPoint(player) {
+    switch (player.category) {
+      case CategoryType.ALL_THE_SAME_KIND:
+        return _.first(player.dices[4])
+    }
+  }
+
   const firstPlayer = getPlayer(firstPlayerInput)
   const secondPlayer = getPlayer(secondPlayerInput)
+
+  firstPlayer.category = getCategory(firstPlayer.dices);
+  secondPlayer.category = getCategory(secondPlayer.dices);
+  firstPlayer.winningPoint = getWinningPoint(firstPlayer);
+  secondPlayer.winningPoint = getWinningPoint(secondPlayer);
 
   return [
     firstPlayer, secondPlayer
