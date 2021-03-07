@@ -1,0 +1,23 @@
+{
+  "name": "Sibala",
+  "version": "1.0.0",
+  "description": "Coding Dojo - Sibala",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": ["dojo"],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/plugin-proposal-optional-chaining": "^7.13.8",
+    "@babel/plugin-transform-modules-commonjs": "^7.9.6",
+    "@babel/preset-env": "^7.9.5",
+    "jest": "^26.6.3",
+    "prettier": "^2.1.2"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21"
+  }
+}
